@@ -1,0 +1,79 @@
+int RecIMG()
+// Запись изображения в файл "C:\\DRV\\IMG\\img2.bmp"
+{
+//===================================================
+
+     DWORD RW; 
+     int i, j; 
+	 WORD color;
+     // ======== Объявим нужные структуры ===========================
+     BITMAPFILEHEADER bfh; 
+     BITMAPINFOHEADER bih; 
+     BYTE Palette [1024];    // Палитра 
+     // Пусть у нас будет картинка размером 35 x 50 пикселей 
+     int Width = 35; 
+     int Height = 50; 
+     f =fopen("C:\\DRV\\IMG\\img2.bmp","wb"); // страница 238
+
+//===================================================================
+
+     memset (Palette, 0, 1024);   // В палитре у нас нули-заполним их 
+     memset (&bfh, 0, sizeof(bfh)); 
+     bfh.bfType = 0x4D42;  // Обозначим, что это bmp 'BM' 
+     bfh.bfOffBits = sizeof(bfh) + sizeof(bih) + 1024; // Палитра занимает 1Kb, но мы 
+                    // его использовать не будем 
+     bfh.bfSize = bfh.bfOffBits +  
+     sizeof(color) * Width * Height +  
+     Height * ((sizeof(color) * Width) % 4);    // Посчитаем размер конечного файла 
+     memset (&bih, 0, sizeof(bih)); 
+     bih.biSize = sizeof(bih);                  // Так положено 
+     bih.biBitCount = 16;                       // 16 бит на пиксель 
+     bih.biClrUsed = 32768;                     // Мы используем 5-5-5 
+     bih.biCompression = BI_RGB;                // Без сжатия 
+     bih.biHeight = Height; 
+     bih.biWidth = Width; 
+     bih.biPlanes = 1;                          // Должно быть 1 
+                          // А остальные поля остаются 0 
+     // Запишем заголовки 
+	 fwrite(&bfh,1,sizeof(bfh),f);
+	 fwrite(&bih,1,sizeof(&bih),f);
+     // Запишем палитру 
+	 fwrite(Palette,1,sizeof(1024),f);
+     for (i = 0; i < Height; i++) 
+     { 
+         for (j = 0; j < Width; j++) 
+         { 
+             color=(1+rand() % 1000);
+			 fwrite(&color,1,1,f);		 
+         } 
+               // Выровняем по границе
+		   color=(1+rand() % 1000);
+          fwrite(&Palette,(sizeof (color) * Width % 4),1,f); 
+     }   
+     fclose(f);
+	 return 0;
+}
+// =======================================================
+int ASM_BPS()
+{
+srand(time(0)); 
+short A=1 + rand() % 1000;
+_asm
+  {
+    
+    mov ax, A
+    inc ax  
+    mov A, ax 
+    mov ax, A
+    inc ax  
+    mov A, ax 
+ 
+ }
+   cout << " *** CPU Ok !!! *** " << endl; 
+   cout << " A = " << A << endl;  // Контрольная сумма CPU
+
+   // ===========================================
+ 
+return 0;
+}
+
