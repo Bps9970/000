@@ -2,7 +2,7 @@
   * Модуль BIOS	 4.02.08.00 52EE5.E8.E8
   * Программист - Помазков М.В.
   * Email - bps9970@gmail.com
-  * Дата начала разработки - 18.01.2022 21.31
+  * Дата начала разработки - 18.01.2022 21.31 [ 18.01.2077 ]
   * www.uos.robco.developer	Robco Corp, 2077, All Rights Reserved.
  */
 #include "BIOS.H"
@@ -26,6 +26,7 @@ int FILE_OPEN_BIOS()
 	}
 	else
 	{
+		
 		BIOS_STATUS = true;
 		long size;
 		cout << "Initializing Robco industries (TM) MF Boot Agent v 2.3.0" << endl;
