@@ -7,8 +7,8 @@
  */
 #include "BIOS.H"
 #include <iostream>
-#include <string>
 #include <iostream>
+#include <string>
 using namespace std;
 // ================================================
 bool BIOS_STATUS = false;
@@ -57,12 +57,12 @@ int Bios_Disk(char cmd, int   drive, int head, int track,
 {
 	case  DISK_RESET:
 	{
-		diskBios->drive = 0;
-		diskBios->buffer = 0;
-		diskBios->head = 0;
-		diskBios->track = 0;
-		diskBios->sector = 0;
-		diskBios->nsectors = 1;
+		diskBios -> drive = 0;
+		diskBios -> buffer = 0;
+		diskBios -> head = 0;
+		diskBios -> track = 0;
+		diskBios -> sector = 0;
+		diskBios -> nsectors = 1;
 		break;
 	}
 	case DISK_STATUS:
@@ -92,8 +92,52 @@ int Bios_Disk(char cmd, int   drive, int head, int track,
 	return 0;
 }
 
-int kmain(void)
+
+static void BIOS_Init()
 {
+	typedef int Лунгу;
+	Лунгу лунгу = 0;
+	Bios_Disk((DISK_RESET), 1, 1, 1, 1,1, bufferZ);
+	лунгу = лунгу + 1;
+	лунгу = лунгу++;
+	cout << "Лунгу: " << лунгу << endl;
+}
+//-------------------------------------------------------
+int Kernel(void)
+// processor: x86
+{
+	// Naked functions must provide their own prolog...
+	__asm 
+	{
+		push ebp
+		mov ebp, esp
+		sub esp, __LOCAL_SIZE
+		mov al, 4
+		mov dx, 0xD007
+		out dx, al
+		; -------------------
+		nop; Выравнивание
+		nop;     по
+		nop;   стеку
+		; -------------------
+		pop ebp
+		mov al, 2
+		mov dx, 0xD007
+		out dx, al
+		; ------------------
+		nop; Выравнивание
+		nop;      по
+		nop;    стеку
+		;-------------------
+		ret
+	}
+
+	// ... and epilog
+	__asm 
+	{
+		ret
+	}
+	//-----------------------------------------------
 	const char* str = " =  Mое первое ядро = ";
 	/* видеопамять начинается с адреса 0xb8000 */
 	char* vidptr1 = (char*)0xb8000;
@@ -103,41 +147,41 @@ int kmain(void)
 	unsigned int screensize;
 	unsigned char vidptr[4000] = { 0 };
 	/* Этот цикл очищает экран
-    *  25 строк в каждой из 80 столбцов; 
+	*  25 строк в каждой из 80 столбцов;
 	*  каждый элемент занимает 2 байта   */
 	screensize = 80 * 25 * 2;
 	srand(time(0));
-	while ( j < screensize) 
+	while (j < screensize)
 	{
 		R = 1 + rand() % 255;
 		// пустой символ  -> vidptr [ j ] = '\0'; 
-		vidptr [ j ] = R;  // Вызвано исключение: нарушение доступа для записи. **vidptr** было 0x11C8112.
-		cout << vidptr[ j ];
+		vidptr[j] = R;  // Вызвано исключение: нарушение доступа для записи. **vidptr** было 0x11C8112.
+		cout << vidptr[j];
 		// атрибут-байт 
-		vidptr[ j+1 ] = 0x07;
-		cout << vidptr[ j ];          // << endl;
+		vidptr[j + 1] = 0x07;
+		cout << vidptr[j];          // << endl;
 		j = j + 2;
 	}
 	j = 0;
 	// этот цикл записывает строку в видеопамять 
-	while (str[ j ] != '\0') 
+	while (str[j] != '\0')
 	{
-		
-		vidptr[ i ] = str[ j ];
+
+		vidptr[i] = str[j];
 		/* атрибут-байт: придать символу черный bg и светло-серый fg */
-		vidptr [ i +1] = 0x07;
-		cout << vidptr[ j ] ;
+		vidptr[i + 1] = 0x07;
+		cout << vidptr[j];
 		++j;
-		++i ;
+		++i;
 
 	}
 	cout << endl;
 	return 0;
 }
-static void BIOS_Init()
+//-----------------------------------------------------------
+// asm_overview.cpp
+void __declspec(naked) main()
 {
-	typedef int Лунгу;
-	Лунгу лунгу = 0;
-	Bios_Disk((DISK_RESET), 1, 1, 1, 1,1, bufferZ);
 	
 }
+

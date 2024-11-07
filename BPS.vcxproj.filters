@@ -102,6 +102,7 @@
   <ItemGroup>
     <None Include="cpp.hint" />
     <None Include="..\.editorconfig" />
+    <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Текст.txt">
