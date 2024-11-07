@@ -14,7 +14,7 @@ float4 main() : SV_TARGET
 	 R = sqrt((W / H) * (H / W));
 	 const int  iterMax = 100;
 
-	 for (int i = 0; i < iterMax; i++)
+	 for  ( int i = 0;  i < iterMax;  i++ )
 	 {
 
 		 tempo = fMatrix._m00; 
@@ -27,5 +27,5 @@ float4 main() : SV_TARGET
 		 tempo = tempo * i * R;
 	 }
 
-	return float4(1.0f, 1.0f, 1.0f, 1.0f);
+	return float4 ( 1.0f, 1.0f, 1.0f, 1.0f );
 }

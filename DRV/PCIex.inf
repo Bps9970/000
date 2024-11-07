@@ -1,0 +1,148 @@
+; PCIex.inf
+;
+; Installation file (.inf) for the Robco_PCIex device.
+;
+; (c) Copyright 2022 Robco 
+;
+
+[Version]
+Signature="$Windows NT$"
+Provider=%Robco%
+ClassGUID={4D36E968-E325-11CE-BFC1-08002BE10318}
+Class=Display
+CatalogFile=PCIex.cat
+DriverVer=04/25/2022
+
+[DestinationDirs]
+DefaultDestDir   = 11
+Robco_PCIex.Miniport  = 12  ; drivers
+Robco_PCIex.Display   = 11  ; system32
+
+;
+; Driver information
+;
+
+[Manufacturer]
+%Robco%   = Robco.Mfg
+
+[Robco.Mfg]
+%Robco.DeviceDesc0% = Robco_PCIex, PCI\VEN_1705&DEV_1705&SUBSYS_17051705
+
+
+;
+; General installation section
+;
+
+[Robco_PCIex]
+AddReg=Robco_PCIex.AddReg
+CopyFiles=Robco_PCIex.Miniport, Robco_PCIex.Display
+
+[Robco_PCIex.AddReg]
+
+
+;
+; File sections
+;
+
+[Robco_PCIex.Miniport]
+PCIex.sys
+
+[Robco_PCIex.Display]
+PCIex.dll
+
+
+;
+; Service Installation
+;
+
+[Robco_PCIex.Services]
+AddService = Robco_PCIex, 0x00000002 , Robco_PCIex_Service_Inst, Robco_PCIex_EventLog_Inst
+
+[Robco_PCIex_Service_Inst]
+DisplayName    = %Robco_PCIex.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 2                  ; SERVICE_AUTO_START
+ErrorControl   = 0x3                  ; SERVICE_ERROR_CRITICAL
+LoadOrderGroup = Video
+ServiceBinary  = %12%\PCIex.sys
+
+
+[Robco_PCIex_EventLog_Inst]
+AddReg = Robco_PCIex_EventLog_AddReg
+
+[Robco_PCIex_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\PCIex.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+;
+; Software Installation
+;
+
+[Robco_PCIex.SoftwareSettings]
+AddReg = Robco_PCIex_SoftwareDeviceSettings
+
+[Robco_PCIex_SoftwareDeviceSettings]
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, PCIex
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+
+[Robco_PCIex.GeneralConfigData]
+MaximumDeviceMemoryConfiguration=1
+MaximumNumberOfDevices=1
+
+
+
+
+;
+; AddInterface Section
+;
+[Robco_PCIex.Interfaces]
+AddInterface={17051705-1705-1705-1705-170517051705},	Robco, Interface_Robco0
+
+; AddInterface for interfaces
+[Interface_Robco0]
+AddReg=Interface_Robco0.AddReg
+
+
+; Registry for interfaces
+[Interface_Robco0.AddReg]
+
+
+
+
+;
+; Source file information
+;
+
+[SourceDisksNames.x86]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+; Files for disk Robco Installation Disk #1 (Display)
+.dll = 1,,
+PCIex.sys = 1,,
+PCIex.dll = 1
+
+
+
+[Strings]
+
+;
+; Non-Localizable Strings
+;
+
+REG_SZ         = 0x00000000
+REG_MULTI_SZ   = 0x00010000
+REG_EXPAND_SZ  = 0x00020000
+REG_BINARY     = 0x00000001
+REG_DWORD      = 0x00010001
+SERVICEROOT    = "System\CurrentControlSet\Services"
+
+;
+; Localizable Strings
+;
+
+Robco.DeviceDesc0 = "Robco_PCIex"
+DiskId1 = "Robco Installation Disk #1 (Display)"
+Robco = "Robco"
+Robco_PCIex.SvcDesc="Robco_PCIex"

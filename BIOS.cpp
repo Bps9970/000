@@ -35,9 +35,9 @@ int FILE_OPEN_BIOS()
 		cout << "Copyright 2201-2203 Robco Ind" << endl;
 		cout << "Root (5A8)" << endl;
 		cout << "Файл BIOS открыт: "<< FILE_NAME << endl;
-		fseek(FILE_BIOS, 0, SEEK_END);		//	Размер		||
-		size = ftell(FILE_BIOS);			//	открытого	||
-		fseek(FILE_BIOS, 0, SEEK_SET);		//	 файла		||
+		fseek(FILE_BIOS, 0, SEEK_END);		 //	  Размер	||
+		size = ftell(FILE_BIOS);			//	 открытого	||
+		fseek(FILE_BIOS, 0, SEEK_SET);	   //	  файла		||
 		cout << "Размер файла BIOS: " << size << " байт." <<endl;
 		//====================================================
 		fclose(FILE_BIOS);
@@ -88,7 +88,7 @@ int Bios_Disk(char cmd, int   drive, int head, int track,
 	}
 }
 	
-	
+
 	return 0;
 }
 
@@ -134,7 +134,7 @@ int kmain(void)
 	cout << endl;
 	return 0;
 }
-void BIOS_Init()
+static void BIOS_Init()
 {
 	typedef int Лунгу;
 	Лунгу лунгу = 0;

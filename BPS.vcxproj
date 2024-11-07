@@ -23,6 +23,7 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\RobCo.cpp" />
     <ClCompile Include="BIOS.cpp" />
+    <ClCompile Include="Cuda.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Graf.cpp" />
     <ClCompile Include="Load.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\Ioctl.h" />
     <ClInclude Include="..\RobCo.h" />
     <ClInclude Include="BIOS.H" />
+    <ClInclude Include="Cuda.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="UEFI.h" />
@@ -48,15 +50,29 @@
     <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="S.txt" />
     <Text Include="Текст.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="ComputeShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <AllResourcesBound Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</AllResourcesBound>
+      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</EnableUnboundedDescriptorTables>
+    </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

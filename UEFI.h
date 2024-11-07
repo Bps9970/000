@@ -20,5 +20,5 @@ int EFI_SIMPLE_WINPHONE_IO_INITIALIZE(int Code);
 int  EFI_SIMPLE_WINPHONE_IO_READ();
 int EFI_SIMPLE_WINPHONE_IO_WRITE();
 
-//==========================================================================================
+//================================================================
 int UEFI();

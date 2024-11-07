@@ -48,6 +48,9 @@
     <ClCompile Include="UEFI.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Cuda.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\bps.h">
@@ -92,12 +95,19 @@
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Cuda.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="..\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Текст.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="S.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
   </ItemGroup>
@@ -108,6 +118,9 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
+      <Filter>Исходные файлы</Filter>
+    </FxCompile>
+    <FxCompile Include="ComputeShader.hlsl">
       <Filter>Исходные файлы</Filter>
     </FxCompile>
   </ItemGroup>
